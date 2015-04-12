@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Saju_14133</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_main_screen">MainScreenActivity</string>
+    <string name="Restaurant_reviewer">Restaurant Reviewer</string>
+    <string name="Enter_review_data">Enter Review Data</string>
+    <string name="Restaurant_name">Restaurant Name</string>
+    <string name="Address">Address</string>
+    <string name="Number_Of_Companions">Number of Companions</string>
+    <string name="Bill">Bill Amount</string>
+    <string name="Tip">Tip</string>
+    <string name="Date">Date</string>
+    <string name="Time">Time</string>
+    <string name="Rating">Rating</string>
+    <string name="Food">Food</string>
+    <string name="Wine">Wine</string>
+    <string name="Ambience">Ambience</string>
+    <string name="Staff">Staff</string>
+    <string name="Overall">Overall</string>
+</resources>

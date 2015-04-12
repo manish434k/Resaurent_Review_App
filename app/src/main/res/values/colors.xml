@@ -1,0 +1,8 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="app_text_color">#FFFFFFFF</color>
+    <color name="app_title_color">#0489B1</color>
+    <color name="app_text_color_data">#D8D8D8</color>
+
+</resources>

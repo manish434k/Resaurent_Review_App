@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_title_text_size">20dp</dimen>
+    <dimen name="app_title2_text_size">20dp</dimen>
+    <dimen name="left_margin_title2">5dp</dimen>
+    <dimen name="margin_title2">5dp</dimen>
+</resources>
