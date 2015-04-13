@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#0099cc"
-    tools:context="com.reviewer.saju.saju_14133.MainScreenActivity">
+    android:layout_height="match_parent" android:background="#000000"
+    tools:context="com.reviewer.saju.saju_14133.MainScreenActivity"
+    android:id="@+id/main_frame1">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -10,22 +11,28 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
+        android:layout_gravity="center">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="left|top"
         android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
             android:text="@string/Enter_review_data"
             android:id="@+id/textView"
             android:textColor="@color/app_text_color"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:layout_weight="1.34"
+            android:layout_weight="1.75"
             android:background="@color/app_title_color"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="@dimen/app_title_text_size" />
@@ -33,10 +40,19 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="518dp"
+            android:layout_height="fill_parent"
             android:layout_margin="@dimen/margin_title2"
             android:weightSum="1"
-            android:scrollbars="vertical">
+           >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextRestName"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/app_text_color_data"
+                android:inputType="text"
+                android:hint="@string/Restaurant_name" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -48,30 +64,21 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:ems="10"
-                    android:id="@+id/editText"
+                    android:id="@+id/editTextDate"
                     android:layout_weight="1"
-                    android:text="@string/Date"
-                    android:textColor="@color/app_text_color_data" />
+                    android:textColor="@color/app_text_color_data"
+                    android:hint="@string/Date" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="time"
                     android:ems="10"
-                    android:id="@+id/editText2"
+                    android:id="@+id/editTextTime"
                     android:layout_weight="1"
-                    android:text="@string/Time"
-                    android:textColor="@color/app_text_color_data" />
+                    android:textColor="@color/app_text_color_data"
+                    android:hint="@string/Time" />
             </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editText3"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/Restaurant_name"
-                android:textColor="@color/app_text_color_data"
-                android:inputType="text" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -79,8 +86,8 @@
                 android:inputType="textPostalAddress"
                 android:ems="10"
                 android:id="@+id/editText_Address"
-                android:text="@string/Address"
-                android:textColor="@color/app_text_color_data" />
+                android:textColor="@color/app_text_color_data"
+                android:hint="@string/Address" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -88,8 +95,8 @@
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/editTextNumCompanion"
-                android:text="@string/Number_Of_Companions"
-                android:textColor="@color/app_text_color_data" />
+                android:textColor="@color/app_text_color_data"
+                android:hint="@string/Number_Of_Companions" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -97,24 +104,22 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:ems="10"
                     android:id="@+id/editTextBill"
                     android:layout_weight="1"
-                    android:text="@string/Bill"
                     android:textColor="@color/app_text_color_data"
                     android:hint="@string/Bill" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:ems="10"
                     android:id="@+id/editText5"
                     android:layout_weight="1"
-                    android:text="@string/Tip"
                     android:textColor="@color/app_text_color_data"
                     android:hint="@string/Tip" />
             </LinearLayout>
@@ -140,13 +145,15 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/Food"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical|center_horizontal"
-                android:textSize="@dimen/app_title2_text_size" />
+                android:textSize="@dimen/app_title2_text_size"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:layout_weight="1" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -155,7 +162,8 @@
                 android:layout_gravity="center_horizontal"
                 android:numStars="@integer/Rating_size"
                 android:rating="0"
-                android:stepSize="1" />
+                android:stepSize="1"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -164,7 +172,9 @@
                 android:text="@string/Wine"
                 android:id="@+id/textView3"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_vertical|center_horizontal" />
+                android:gravity="center_vertical|center_horizontal"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:textSize="@dimen/app_title2_text_size" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -179,7 +189,9 @@
                 android:text="@string/Ambience"
                 android:id="@+id/textView4"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_vertical|center_horizontal" />
+                android:gravity="center_vertical|center_horizontal"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:textSize="@dimen/app_title2_text_size" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -194,7 +206,9 @@
                 android:text="@string/Staff"
                 android:id="@+id/textView5"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_vertical|center_horizontal" />
+                android:gravity="center_vertical|center_horizontal"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:textSize="@dimen/app_title2_text_size" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -209,7 +223,9 @@
                 android:text="@string/Overall"
                 android:id="@+id/textView6"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_vertical|center_horizontal" />
+                android:gravity="center_vertical|center_horizontal"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:textSize="@dimen/app_title2_text_size" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -217,7 +233,17 @@
                 android:id="@+id/ratingBar5"
                 android:layout_gravity="center_horizontal" />
 
+            <Button
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Submit"
+                android:id="@+id/button"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/app_text_color_data"
+                android:background="@color/app_title_color" />
+
         </LinearLayout>
 
     </LinearLayout>
+    </ScrollView>
 </FrameLayout>

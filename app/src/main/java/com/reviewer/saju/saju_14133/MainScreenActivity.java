@@ -3,12 +3,18 @@ package com.reviewer.saju.saju_14133;
 import com.reviewer.saju.saju_14133.util.SystemUiHider;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
+
+import java.util.Calendar;
 
 
 /**
@@ -45,13 +51,22 @@ public class MainScreenActivity extends Activity {
      * The instance of the {@link SystemUiHider} for this activity.
      */
     private SystemUiHider mSystemUiHider;
+    private EditText editTxtdate;
+    private EditText editTxtTime;
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_screen);
+        //Remove title bar
+        ActionBar actionBar = getActionBar();
+        // hide the action bar
+        actionBar.hide();
 
+        //current date on view
+        setCurrentDateOnView();
 
     }
 
@@ -96,5 +111,30 @@ public class MainScreenActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    // display current date
+    public void setCurrentDateOnView() {
+
+        editTxtdate = (EditText) findViewById(R.id.editTextDate);
+        editTxtTime = (EditText) findViewById(R.id.editTextTime);
+
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour =c.get(Calendar.HOUR);
+        int min =c.get(Calendar.MINUTE);
+
+        // set current date into textview
+        editTxtdate.setText(new StringBuilder()
+                // Month is 0 based, just add 1
+                .append(month + 1).append("-").append(day).append("-")
+                .append(year).append(" (Date)"));
+
+        editTxtTime.setText(new StringBuilder()
+                // Month is 0 based, just add 1
+                .append(hour).append(":").append(min).append(" hours (Time)"));
+
     }
 }
