@@ -20,4 +20,6 @@
     <string name="Staff">Staff</string>
     <string name="Overall">Overall</string>
     <string name="Submit">Submit</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
