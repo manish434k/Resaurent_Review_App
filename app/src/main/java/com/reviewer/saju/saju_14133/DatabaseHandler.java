@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 import com.reviewer.saju.saju_14133.util.Review;
 
 
@@ -36,16 +37,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_BILL = "bill_amount";
     private static final String KEY_TIP = "tip_amount";
 
-    //rating table
-    private static final String TABLE_RATING = "rating";
-
     //Rating table column name
-    private static final String KEY_RATING_ID = "rating_id";
-    private static final String KEY_FOOD = "food";
-    private static final String KEY_WINE= "wine";
-    private static final String KEY_AMBIANCE = "ambiance";
-    private static final String KEY_STAFF = "staff";
-    private static final String KEY_OVERALL = "overall";
+    private static final String KEY_RATING_FOOD = "food";
+    private static final String KEY_RATING_WINE = "wine";
+    private static final String KEY_RATING_AMBIANCE = "ambiance";
+    private static final String KEY_RATING_STAFF = "staff";
+    private static final String KEY_RATING_OVERALL = "overall";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,30 +54,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_REVIEWER_TABLE = "CREATE TABLE " + TABLE_REVIEWER + "("
                 + KEY_REVIEW_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NAME + " TEXT,"
-                + KEY_DATE + " TEXT"
-                + KEY_TIME + " TEXT"
-                + KEY_ADDRESS + " TEXT"
-                + KEY_COMP_COUNT + " INTEGER"
-                + KEY_BILL + " INTEGER"
-                + KEY_TIP + " INTEGER" +")";
-
-        String CREATE_RATING_TABLE = "CREATE TABLE " + TABLE_RATING + "("
-                + KEY_RATING_ID + " INTEGER PRIMARY KEY,"
-                + KEY_FOOD + " INTEGER,"
-                + KEY_WINE + " INTEGER"
-                + KEY_AMBIANCE + " INTEGER"
-                + KEY_STAFF + " INTEGER"
-                + KEY_OVERALL + " INTEGER" +" FOREIGN KEY ("+KEY_RATING_ID+") REFERENCES "+TABLE_REVIEWER+" ("+KEY_REVIEW_ID+"))";
+                + KEY_DATE + " TEXT,"
+                + KEY_TIME + " TEXT,"
+                + KEY_ADDRESS + " TEXT,"
+                + KEY_COMP_COUNT + " INTEGER,"
+                + KEY_BILL + " INTEGER,"
+                + KEY_TIP + " INTEGER,"
+                + KEY_RATING_FOOD + " INTEGER,"
+                + KEY_RATING_WINE + " INTEGER,"
+                + KEY_RATING_AMBIANCE + " INTEGER,"
+                + KEY_RATING_STAFF + " INTEGER,"
+                + KEY_RATING_OVERALL + " INTEGER"
+                +")";
 
         db.execSQL(CREATE_REVIEWER_TABLE);
-        db.execSQL(CREATE_RATING_TABLE);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATING);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REVIEWER);
 
         // Create tables again
@@ -104,7 +97,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_COMP_COUNT, review.getCompanion()); // Companion
         values.put(KEY_BILL, review.getBill()); // Bill
         values.put(KEY_TIP, review.getTip()); // tip
-
+        //rating
+        values.put(KEY_RATING_FOOD,review.getRating_food());
+        values.put(KEY_RATING_WINE,review.getRating_wine());
+        values.put(KEY_RATING_AMBIANCE,review.getRating_ambiance());
+        values.put(KEY_RATING_STAFF,review.getRating_staff());
+        values.put(KEY_RATING_OVERALL,review.getRating_overall());
         // Inserting Row
         db.insert(TABLE_REVIEWER, null, values);
         db.close(); // Closing database connection
@@ -121,11 +119,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        Review review = new Review(Integer.parseInt(cursor.getString(0)),
+        Review review = new Review(cursor.getInt(0),
                 cursor.getString(1), cursor.getString(2),cursor.getString(3),
                 cursor.getString(4),Integer.parseInt(cursor.getString(5)),
-                Integer.parseInt(cursor.getString(6)),
-                Integer.parseInt(cursor.getString(7)));
+                cursor.getInt(6),
+                cursor.getInt(7),
+                cursor.getInt(8),
+                cursor.getInt(9),
+                cursor.getInt(10),
+                cursor.getInt(11),
+                cursor.getInt(12));
+
         // return review
         return review;
     }
@@ -136,7 +140,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_REVIEWER;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
@@ -151,6 +155,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 review.setCompanion(Integer.parseInt(cursor.getString(5)));
                 review.setBill(Integer.parseInt(cursor.getString(6)));
                 review.setTip(Integer.parseInt(cursor.getString(7)));
+                review.setRating_food(cursor.getInt(8));
+                review.setRating_wine(cursor.getInt(9));
+                review.setRating_ambiance(cursor.getInt(10));
+                review.setRating_staff(cursor.getInt(11));
+                review.setRating_overall(cursor.getInt(12));
                 // Adding review to list
                 reviewList.add(review);
             } while (cursor.moveToNext());
@@ -188,13 +197,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Getting reviews Count
     public int getReviewsCount() {
+        int count=0;
         String countQuery = "SELECT  * FROM " + TABLE_REVIEWER;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+        count=cursor.getCount();
         cursor.close();
 
         // return count
-        return cursor.getCount();
+        return count;
     }
 
 }

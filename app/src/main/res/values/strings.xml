@@ -22,4 +22,15 @@
     <string name="Submit">Submit</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="ten_prcnt">10%</string>
+    <string name="twenty_prcnt">20%</string>
+    <string name="prcnt2">12.5%</string>
+    <string name="prcnt3">15%</string>
+    <string name="title_activity_dashboard">Review Dashboard</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_review_dashboard">Review Dashboard</string>
+    <string name="Dashboard">Dashboard</string>
 </resources>

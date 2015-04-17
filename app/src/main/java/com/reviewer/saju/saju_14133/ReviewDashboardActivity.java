@@ -1,5 +1,8 @@
 package com.reviewer.saju.saju_14133;
 
+import com.reviewer.saju.saju_14133.util.CustomBaseAdapter;
+import com.reviewer.saju.saju_14133.util.DashboardItem;
+import com.reviewer.saju.saju_14133.util.Review;
 import com.reviewer.saju.saju_14133.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -8,13 +11,16 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,7 +29,7 @@ import java.util.Calendar;
  *
  * @see SystemUiHider
  */
-public class MainScreenActivity extends Activity {
+public class ReviewDashboardActivity extends Activity /*implements OnItemClickListener*/{
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -51,22 +57,36 @@ public class MainScreenActivity extends Activity {
      * The instance of the {@link SystemUiHider} for this activity.
      */
     private SystemUiHider mSystemUiHider;
-    private EditText editTxtdate;
-    private EditText editTxtTime;
+    ListView listView;
+    List<DashboardItem> dashItems;
+    private DatabaseHandler db;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main_screen);
+        setContentView(R.layout.activity_review_dashboard);
         //Remove title bar
         ActionBar actionBar = getActionBar();
         // hide the action bar
         actionBar.hide();
 
-        //current date on view
-        setCurrentDateOnView();
+        db = new DatabaseHandler(this);
+        List<Review> review = db.getAllReviews();
+
+          dashItems = new ArrayList<>();
+        for (Review cn : review){
+            DashboardItem item = new DashboardItem(cn.getName(),cn.getAddress() ,cn.getDate(),cn.getTime(),cn.getBill(), cn.getRating_overall());
+            dashItems.add(item);
+        }
+
+        listView = (ListView) findViewById(R.id.listView_review);
+        CustomBaseAdapter adapter = new CustomBaseAdapter(this, dashItems);
+        listView.setAdapter(adapter);
+        //listView.setOnItemClickListener(this);
+
+
 
     }
 
@@ -113,28 +133,12 @@ public class MainScreenActivity extends Activity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    // display current date
-    public void setCurrentDateOnView() {
-
-        editTxtdate = (EditText) findViewById(R.id.editTextDate);
-        editTxtTime = (EditText) findViewById(R.id.editTextTime);
-
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        int hour =c.get(Calendar.HOUR);
-        int min =c.get(Calendar.MINUTE);
-
-        // set current date into textview
-        editTxtdate.setText(new StringBuilder()
-                // Month is 0 based, just add 1
-                .append(month + 1).append("-").append(day).append("-")
-                .append(year).append(" (Date)"));
-
-        editTxtTime.setText(new StringBuilder()
-                // Month is 0 based, just add 1
-                .append(hour).append(":").append(min).append(" hours (Time)"));
-
-    }
+/*    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Item " + (position + 1) + ": " + dashItems.get(position),
+                Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }*/
 }

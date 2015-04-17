@@ -14,13 +14,21 @@ public class Review {
     int companion;
     int bill;
     int tip;
+    float rating_food;
+    float rating_wine;
+    float rating_ambiance;
+    float rating_staff;
+    float rating_overall;
 
     // Empty constructor
     public Review(){
 
     }
     // constructor
-    public Review(int id,String name,String date,String time,String address,int companion,int bill,int tip){
+    public Review(int id,String name,String date,String time,String address,int companion,int bill,int tip,
+                  float rating_food,
+                  float rating_wine, float rating_ambiance,
+                  float rating_staff, float rating_overall){
         this.id = id;
         this.name = name;
         this.date =date;
@@ -29,6 +37,12 @@ public class Review {
         this.companion =companion;
         this.bill =bill;
         this.tip =tip;
+        //rating
+        this.rating_food = rating_food;
+        this.rating_wine = rating_wine;
+        this.rating_ambiance = rating_ambiance;
+        this.rating_staff = rating_staff;
+        this.rating_overall = rating_overall;
     }
 
 
@@ -96,47 +110,7 @@ public class Review {
         this.tip = tip;
     }
 
-}
-
-class Rating {
-
-    int rating_id;
-    int rating_food;
-    int rating_wine;
-    int rating_ambiance;
-    int rating_staff;
-    int rating_overall;
-
-    //constructor
-    public Rating()
-    {
-
-    }
-
-    //Empty constructor
-    public Rating(int rating_id,int rating_food,
-            int rating_wine, int rating_ambiance,
-            int rating_staff,int rating_overall)
-    {
-
-        this.rating_id = rating_id;
-        this.rating_food = rating_food;
-        this.rating_wine = rating_wine;
-        this.rating_ambiance = rating_ambiance;
-        this.rating_staff = rating_staff;
-        this.rating_overall = rating_overall;
-
-    }
-
-    public int getRating_id() {
-        return rating_id;
-    }
-
-    public void setRating_id(int rating_id) {
-        this.rating_id = rating_id;
-    }
-
-    public int getRating_food() {
+    public float getRating_food() {
         return rating_food;
     }
 
@@ -144,7 +118,7 @@ class Rating {
         this.rating_food = rating_food;
     }
 
-    public int getRating_wine() {
+    public float getRating_wine() {
         return rating_wine;
     }
 
@@ -152,7 +126,7 @@ class Rating {
         this.rating_wine = rating_wine;
     }
 
-    public int getRating_ambiance() {
+    public float getRating_ambiance() {
         return rating_ambiance;
     }
 
@@ -160,7 +134,7 @@ class Rating {
         this.rating_ambiance = rating_ambiance;
     }
 
-    public int getRating_staff() {
+    public float getRating_staff() {
         return rating_staff;
     }
 
@@ -168,7 +142,7 @@ class Rating {
         this.rating_staff = rating_staff;
     }
 
-    public int getRating_overall() {
+    public float getRating_overall() {
         return rating_overall;
     }
 
@@ -177,3 +151,4 @@ class Rating {
     }
 
 }
+

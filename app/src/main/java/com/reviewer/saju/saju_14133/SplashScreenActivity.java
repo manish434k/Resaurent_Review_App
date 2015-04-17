@@ -18,7 +18,7 @@ import android.view.View;
  *
  * @see SystemUiHider
  */
-public class FullscreenActivity extends Activity {
+public class SplashScreenActivity extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -54,7 +54,7 @@ public class FullscreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_splashscreen);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
@@ -130,7 +130,8 @@ public class FullscreenActivity extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(FullscreenActivity.this, MainScreenActivity.class);
+                //Intent i = new Intent(FullscreenActivity.this, ReviewDashboardActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this, ReviewScreenActivity.class);
                 startActivity(i);
 
                 // close this activity
